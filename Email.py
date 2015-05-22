@@ -1,16 +1,12 @@
 # coding: UTF-8
 
 import smtplib
+import time
 
 from Config import *
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
-
-# if Email.send_mail(mailto_list, "hello", "hello world！"):
-#     print("发送成功")
-# else:
-#     print("发送失败")
 
 class Email:
 
@@ -35,7 +31,6 @@ class Email:
 
             if files!=None:
                 for file in files:
-                    #构造附件
                     att = MIMEText(open(file, 'rb').read(), 'base64', 'utf-8')
                     att["Content-Type"] = 'application/octet-stream'
                     att["Content-Disposition"] = 'attachment; filename="'+file+'.txt"'
@@ -44,10 +39,14 @@ class Email:
             server = smtplib.SMTP()
             server.connect(self.config.mail_host)
             server.login(self.config.mail_user, self.config.mail_pass)
+            print("email sending ....")
+            t1 = time.clock()
             server.sendmail(self.config.mail_from, self.config.mailto_list, msg.as_string())
+            t2 = time.clock()
             server.close()
-            print('success send email ' + title)
+            t3 = t2 - t1
+            print('success send email ', title, " takes time ", t3)
             return True
         except Exception as e:
-            print(e)
+            print('failed send email:', e)
             return False
