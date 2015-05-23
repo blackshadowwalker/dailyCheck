@@ -52,11 +52,11 @@ class Monitor(threading.Thread):
                 ip = socket.gethostbyname(hostname)
                 content =  hostname + "/" + ip + "\r\n"
                 if len(self.logList) > 0:
-                    content += "错误日志列表: \r\n"
+                    content += "昨天错误日志列表: \r\n"
                     for file in self.logList:
                         content += file + "\r\n"
                 else:
-                    content += "暂无错误日志，其他日志列表: \r\n"
+                    content += "暂无昨天错误日志，其他日志列表: \r\n"
                     for file in fileList:
                         content += file + "\r\n"
                 self.email.send_mail(self.config.getAppName()+"-错误日志", content, self.logList)
