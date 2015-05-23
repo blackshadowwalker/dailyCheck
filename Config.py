@@ -11,7 +11,7 @@ class Config:
     mailto_list = ["BlackShadowWalker@163.com","yangbing@gozap.com"]
     mail_host = "smtp.126.com"  # 设置服务器
     mail_user = "crash_client"  # 用户名
-    nick_name = "错误日志日志清查" #发件人昵称
+    nick_name = "错误日志清查" #发件人昵称
     mail_pass = "vqldobvhsssobpfb"  # 口令
     mail_postfix = "126.com"  # 发件箱的后缀
     mail_from = mail_user + "@" + mail_postfix;
