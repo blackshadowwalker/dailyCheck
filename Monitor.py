@@ -52,7 +52,7 @@ class Monitor(threading.Thread):
                 ip = socket.gethostbyname(hostname)
                 content =  hostname + "/" + ip + "\r\n"
                 if len(self.logList) > 0:
-                    content += "暂无日志列表: \r\n"
+                    content += "错误日志列表: \r\n"
                     for file in self.logList:
                         content += file + "\r\n"
                 else:
