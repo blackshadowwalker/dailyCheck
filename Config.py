@@ -20,6 +20,7 @@ class Config:
 
     def setConfigFile(self, fileName):
         self.ConfigFile = fileName
+        print('set conf file ', self.ConfigFile)
 
     def getLogDir(self):
         return self.prop[self.PROP_LOG_DIR]

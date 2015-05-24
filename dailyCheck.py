@@ -27,7 +27,8 @@ if __name__ == '__main__':
     else:
         config = Config()
         monitor = Monitor()
-        config.setConfigFile(os.getcwd()+"/dailyCheck.properties")
+        propFile = os.path.split(os.path.realpath(__file__))[0] + "/dailyCheck.properties"
+        config.setConfigFile(propFile)
         if config.display():
             print('inited')
             monitor.setConfig(config)
