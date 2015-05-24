@@ -12,6 +12,10 @@ wget -O dailyCheck.zip https://codeload.github.com/blackshadowwalker/dailyCheck/
 unzip dailyCheck.zip
 mv dailyCheck-develop dailyCheck
 cd dailyCheck
-python3 ./dailyCheck.py > dailyCheck.log &
+chmod u+x start.sh
+chmod u+x stop.sh
+chmod u+x restart.sh
+chmod u+x psme
+nohup python3 /home/dailyCheck/dailyCheck.py >dailyCheck.log 2>&1 &
 ps aux | grep python
 

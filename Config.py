@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import logging
+
 class Config:
     #配置
     PROP_APP_NAME = "app.name"
@@ -16,11 +18,8 @@ class Config:
     mail_postfix = "126.com"  # 发件箱的后缀
     mail_from = mail_user + "@" + mail_postfix;
 
-    def __init__(self):
-        print("__init__")
-
     def setConfigFile(self, fileName):
-        self.ConfigFile = filename
+        self.ConfigFile = fileName
 
     def getLogDir(self):
         return self.prop[self.PROP_LOG_DIR]
@@ -32,6 +31,7 @@ class Config:
         return self.prop[self.PROP_APP_NAME]
 
     def display(self):
+
         print("init ", self.ConfigFile)
         try:
             propFile = open(self.ConfigFile, "r")
@@ -46,6 +46,6 @@ class Config:
             if self.prop.get(self.PROP_LOG_PATTERM) == None:
                 raise  ValueError('please set '+self.PROP_LOG_PATTERM)
         except Exception as e:
-            print('[ERROR]',e)
+            logging.error(e)
         else:
             return True

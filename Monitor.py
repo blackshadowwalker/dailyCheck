@@ -2,7 +2,8 @@
 
 import os
 import re
-import time
+import sys
+import logging
 import threading
 import socket
 
@@ -11,10 +12,10 @@ from Email import *
 
 class Monitor(threading.Thread):
     "监控模块"
-    name = "监控模块";
+    name = "监控模块"
     logDir = ""
     logList = []
-    loopTime = 60
+    loopTime = 1
     email = Email()
     config = Config()
 
@@ -32,21 +33,25 @@ class Monitor(threading.Thread):
         return False
 
     def run(self):
-        print(self.name + " 启动")
+
+
+        logging.info(self.name + " 启动")
+        time.sleep(1)
+        dotsCount = 0
         while True:
             if self.__checkTimeIsOk():
-                print("logDir:" + self.logDir)
+                logging.info("logDir:" + self.logDir)
                 #昨天
                 localTime =  time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
                 regstr = '.*error.log.' + localTime +'.log'
             #    print('regstr: ' + regstr)
                 fileList = os.listdir(self.logDir)
-                print("fileList:", fileList)
+                logging.debug("fileList:", fileList)
                 self.logList.clear()
                 for file in fileList:
                     if re.match(regstr, file):
                         self.logList.append(self.logDir + '/' + file)
-                print("logList :", self.logList)
+                logging.info("logList :", self.logList)
                 self.email.setConfig(self.config)
                 hostname = socket.gethostname()
                 ip = socket.gethostbyname(hostname)
@@ -60,6 +65,13 @@ class Monitor(threading.Thread):
                     for file in fileList:
                         content += file + "\r\n"
                 self.email.send_mail(self.config.getAppName()+"-错误日志", content, self.logList)
-                print('sleep ', self.loopTime)
+                logging.info('sleep ', self.loopTime)
+            else:
+                sys.stdout.write( '.')
+                sys.stdout.flush()
+                dotsCount += 1
+                if dotsCount >= 100:
+                    sys.stdout.write('\n')
+                    dotsCount = 0
             time.sleep(self.loopTime)
 
