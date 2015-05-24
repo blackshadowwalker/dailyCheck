@@ -7,6 +7,9 @@ cd Python-3.3.0
 make
 make install
 ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+
+kill -9  `ps aux | grep dailyCheck | grep python | awk '{print $2}'`
+rm -rf dailyCheck*
 cd /home/
 wget -O dailyCheck.zip https://codeload.github.com/blackshadowwalker/dailyCheck/zip/develop
 unzip dailyCheck.zip
