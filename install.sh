@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -d "/usr/bin/python3" ]; then
+if [ ! -f "/usr/bin/python3" ]; then
     echo install python3 ...
     wget http://api.ezhe.com/temp/Python-3.3.0.tgz
     tar -xvf Python-3.3.0.tgz
