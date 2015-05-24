@@ -1,12 +1,15 @@
 #!/bin/sh
 
-wget http://api.ezhe.com/temp/Python-3.3.0.tgz
-tar -xvf Python-3.3.0.tgz
-cd Python-3.3.0
-./configure --prefix=/usr/local/python3
-make
-make install
-ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+if [ ! -d "/usr/bin/python3" ]; then
+    echo install python3 ...
+    wget http://api.ezhe.com/temp/Python-3.3.0.tgz
+    tar -xvf Python-3.3.0.tgz
+    cd Python-3.3.0
+    ./configure --prefix=/usr/local/python3
+    make
+    make install
+    ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+fi
 
 kill -9  `ps aux | grep dailyCheck | grep python | awk '{print $2}'`
 rm -rf dailyCheck*
@@ -25,7 +28,8 @@ chmod u+x start.sh
 chmod u+x stop.sh
 chmod u+x restart.sh
 chmod u+x psme
-nohup python3 /home/dailyCheck/dailyCheck.py >dailyCheck.log 2>&1 &
+
+/home/dailyCheck/start.sh
 
 ps aux | grep python
 
