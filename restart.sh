@@ -1,7 +1,7 @@
 #!/bin/sh
 
 pid=`ps aux | grep dailyCheck | grep python | awk '{print $2}'`
-kill -9 pid
+kill -9 $pid
 echo killed pid $pid
 
 thisdir=$(dirname $0)
