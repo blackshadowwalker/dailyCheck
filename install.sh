@@ -15,10 +15,19 @@ wget -O dailyCheck.zip https://codeload.github.com/blackshadowwalker/dailyCheck/
 unzip dailyCheck.zip
 mv dailyCheck-develop dailyCheck
 cd dailyCheck
+
+vi +':w ++ff=unix' +':q' start.sh
+vi +':w ++ff=unix' +':q' stop.sh
+vi +':w ++ff=unix' +':q' restart.sh
+vi +':w ++ff=unix' +':q' psme
+
 chmod u+x start.sh
 chmod u+x stop.sh
 chmod u+x restart.sh
 chmod u+x psme
 nohup python3 /home/dailyCheck/dailyCheck.py >dailyCheck.log 2>&1 &
+
 ps aux | grep python
+
+
 
