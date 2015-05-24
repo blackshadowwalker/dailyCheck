@@ -3,7 +3,6 @@
 import os
 import re
 import sys
-import logging
 import threading
 import socket
 
@@ -15,7 +14,7 @@ class Monitor(threading.Thread):
     name = "监控模块"
     logDir = ""
     logList = []
-    loopTime = 1
+    loopTime = 60
     email = Email()
     config = Config()
 
@@ -33,8 +32,6 @@ class Monitor(threading.Thread):
         return False
 
     def run(self):
-
-
         logging.info(self.name + " 启动")
         time.sleep(1)
         dotsCount = 0
@@ -43,8 +40,7 @@ class Monitor(threading.Thread):
                 logging.info("logDir:" + self.logDir)
                 #昨天
                 localTime =  time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
-                regstr = '.*error.log.' + localTime +'.log'
-            #    print('regstr: ' + regstr)
+                regstr = '.*error.log.' + localTime + '.log'
                 fileList = os.listdir(self.logDir)
                 logging.debug("fileList:", fileList)
                 self.logList.clear()
