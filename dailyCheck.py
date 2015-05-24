@@ -22,8 +22,8 @@ if __name__ == '__main__':
         s = socket.socket()
         host = socket.gethostname()
         s.bind((host, 60123))
-    except:
-        print('already has an instance')
+    except Exception as e:
+        print('already has an instance ', type(e), e)
     else:
         config = Config()
         monitor = Monitor()
