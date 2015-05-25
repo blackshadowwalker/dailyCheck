@@ -29,7 +29,7 @@ class Monitor(threading.Thread):
         min = time.localtime(time.time())[4]
         if hour == 8 and min == 5:
             return True
-        return True
+        return False
 
     def run(self):
         logging.info(self.name + " 启动")
