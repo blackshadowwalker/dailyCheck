@@ -22,12 +22,12 @@ if __name__ == '__main__':
     try:
         s = socket.socket()
         host = socket.gethostname()
-        s.bind((host, 11321232))
-    except WindowsError as e:
-        if e.winerror == 10048:
-            logging.error('already has an instance : %s', e.strerror)
-        else:
-            logging.error('%s %s', type(e), e)
+        s.bind((host, 51893))
+    except OverflowError as e:
+       logging.error('%s %s', type(e), e)
+       sys.exit(-2)
+    except OSError as e:
+        logging.error('%s %s', type(e), e)
         sys.exit(-1)
     except Exception as e:
         logging.error('%s %s', type(e), e)
