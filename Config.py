@@ -10,7 +10,7 @@ class Config:
     ConfigFile = "dailyCheck.properties"
     prop = {}
 
-    mailto_list = ["BlackShadowWalker@163.com","yangbing@gozap.com"]
+    mailto_list = ["BlackShadowWalker@163.com"]
     mail_host = "smtp.126.com"  # 设置服务器
     mail_user = "crash_client"  # 用户名
     nick_name = "错误日志清查" #发件人昵称

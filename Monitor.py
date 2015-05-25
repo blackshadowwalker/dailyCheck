@@ -29,7 +29,7 @@ class Monitor(threading.Thread):
         min = time.localtime(time.time())[4]
         if hour == 8 and min == 5:
             return True
-        return False
+        return True
 
     def run(self):
         logging.info(self.name + " 启动")
@@ -37,21 +37,24 @@ class Monitor(threading.Thread):
         dotsCount = 0
         while True:
             if self.__checkTimeIsOk():
-                logging.info("logDir:" + self.logDir)
+                print('.')
+                logging.info("logDir: %s" + self.logDir)
                 #昨天
                 localTime =  time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
                 regstr = '.*error.log.' + localTime + '.log'
                 fileList = os.listdir(self.logDir)
-                logging.debug("fileList:", fileList)
+                fileList.sort()
+                logging.info("fileList: %s", fileList)
                 self.logList.clear()
                 for file in fileList:
                     if re.match(regstr, file):
                         self.logList.append(self.logDir + '/' + file)
-                logging.info("logList :", self.logList)
+                self.logList.sort()
+                logging.info("logList: %s", self.logList)
                 self.email.setConfig(self.config)
                 hostname = socket.gethostname()
                 ip = socket.gethostbyname(hostname)
-                content =  hostname + "/" + ip + "\r\n"
+                content = hostname + "/" + ip + "\r\n"
                 if len(self.logList) > 0:
                     content += "昨天错误日志列表: \r\n"
                     for file in self.logList:
@@ -61,7 +64,7 @@ class Monitor(threading.Thread):
                     for file in fileList:
                         content += file + "\r\n"
                 self.email.send_mail(self.config.getAppName()+"-错误日志", content, self.logList)
-                logging.info('sleep ', self.loopTime)
+                logging.info('sleep  %d ', self.loopTime)
             else:
                 sys.stdout.write( '.')
                 sys.stdout.flush()
