@@ -1,6 +1,7 @@
 # coding: UTF-8
 # !/usr/bin/python
 
+import logging
 
 from Monitor import *
 
@@ -21,9 +22,16 @@ if __name__ == '__main__':
     try:
         s = socket.socket()
         host = socket.gethostname()
-        s.bind((host, 60123))
+        s.bind((host, 11321232))
+    except WindowsError as e:
+        if e.winerror == 10048:
+            logging.error('already has an instance : %s', e.strerror)
+        else:
+            logging.error('%s %s', type(e), e)
+        sys.exit(-1)
     except Exception as e:
-        print('already has an instance ', type(e), e)
+        logging.error('%s %s', type(e), e)
+        sys.exit(-1)
     else:
         config = Config()
         monitor = Monitor()
