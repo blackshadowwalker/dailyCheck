@@ -2,8 +2,8 @@
 
 if [ ! -f "/usr/bin/python3" ]; then
     echo install python3 ...
-    wget http://api.ezhe.com/temp/Python-3.3.0.tgz
-    tar -xvf Python-3.3.0.tgz
+    wget https://www.python.org/ftp/python/3.3.0/Python-3.3.0.tar.xz
+    tar -xvf Python-3.3.0.tar.xz
     cd Python-3.3.0
     ./configure --prefix=/usr/local/python3
     make
